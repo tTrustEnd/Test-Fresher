@@ -1,46 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { fetchLogin } from "../../service/api";
+import { fetchUserRegister } from "../../service/api";
 import { LockOutlined, UserOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
-import { Button, Descriptions, Divider, Form, Input, message, notification } from "antd";
-import { NavLink, useNavigate } from "react-router-dom";
-import Password from "antd/es/input/Password";
-import { useDispatch } from "react-redux";
-import { doLoginAction } from "../../redux/account/accountSlice";
+import { Button, Divider, Form, Input, message, notification } from "antd";
+import './register.scss'
+import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+const Register = () => {
+    const navigate = useNavigate()
     const [form] = Form.useForm();
     const [, forceUpdate] = useState({});
     const [isLoading, setIsLoading] = useState(false)
     // To disable submit button at the beginning.
     useEffect(() => {
-
+        forceUpdate({});
     }, []);
- 
 
-    const onFinish = async(values) => {
-        const {username, password } = values;
-        let res = await fetchLogin(username, password)
-   if(res?.data?.access_token){
-    localStorage.setItem('access_token',res.data.access_token)
-    dispatch(doLoginAction(res.data.user))
-   message.success('Đăng nhập tài khoản thành công')
-    navigate('/')
-  
-   }
-   if(res?.error){
-    notification.error({
-        message:'Đăng nhập không thành công',
-        description:res && res.message && res.message.length > 0 ? res.message : res.message[0],
-        duration:1
-    })
-   }
+    const onFinish = async (values) => {
+        // const message =useMessage();
+        setIsLoading(true);
+        console.log("Check data create:", values);
+        const { fullName, email, password, phone } = values
+        let res = await fetchUserRegister(fullName, email, password, phone)
+        console.log(res)
+        setIsLoading(false)
+        if (res?.data?._id) {
+            message.success(
+                'Đăng ký người dùng thành công'
+            )
+            navigate('/login')
+        }
+        if (res?.error) {
+            notification.error(
+                {
+                    message: 'có lỗi xảy ra',
+                    description: message && res.message.length > 0 ? res.message : '',
+                    duration: 1
+                }
+            )
+        }
+
     };
     return (
 
         <div className="register-container">
-            <span>Đăng nhập</span>
+            <span>Đăng ký người dùng mới </span>
 
             <div >
                 <Form className="form-register "
@@ -50,9 +53,17 @@ const LoginPage = () => {
                     onFinish={onFinish}
                     autoComplete="off"
                 >
-                
+                    <Form.Item className="input"
+                        name="fullName"
+                        rules={[{ required: true, message: "Please input your fullname!" }]}
+                    >
+                        <Input
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder="Fullname"
+                        />
+                    </Form.Item >
                     <Form.Item className=" input"
-                        name="username"
+                        name="email"
                         rules={[{ required: true, message: "Please input your username!" }]}
                     >
                         <Input
@@ -70,7 +81,15 @@ const LoginPage = () => {
                             placeholder="Password"
                         />
                     </Form.Item>
-               
+                    <Form.Item className=" input"
+                        name="phone"
+                        rules={[{ required: true, message: "Please input your phone!" }]}
+                    >
+                        <Input
+                            prefix={<PhoneOutlined className="site-form-item-icon" />}
+                            placeholder="Phone"
+                        />
+                    </Form.Item>
 
                     <Form.Item shouldUpdate>
                         {() => (
@@ -84,14 +103,14 @@ const LoginPage = () => {
                             //         .length
                             // }
                             >
-                              Đăng nhập
+                                Đăng ký
                             </Button>
                         )}
                     </Form.Item>
                 </Form>
             </div>
-           <span className="span1" >Chưa có tài khoản?<NavLink className="link" to='/register' > Đăng ký</NavLink></span> 
+
         </div>
     )
 }
-export default LoginPage;
+export default Register;

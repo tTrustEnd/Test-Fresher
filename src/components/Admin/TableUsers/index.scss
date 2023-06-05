@@ -1,0 +1,32 @@
+.def{
+    display: flex;
+
+}
+.header{
+    display: flex;
+    width: 200px;
+}
+.input-g{
+    display: flex;
+    .input1{
+        display: flex;
+      
+    }
+    .input2{
+        display: flex;
+    }
+    .input3{
+        display: flex;
+        padding-right: 15px;
+    }
+}
+.love{
+    span{
+        padding: 0 10px;
+    }
+}
+h2{
+    padding-top: 50px;
+    height: 120px;
+    display: flex;
+}

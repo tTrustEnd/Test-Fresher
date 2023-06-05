@@ -1,0 +1,21 @@
+.admin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .rightadmin{
+        padding-right: 50px;
+        padding-top: 15px;
+        .drop{
+            font-size: 50px;
+    
+         span{
+            font-size: 25px;
+         }
+        }
+ }
+
+    span{
+        padding: 10px 10px;
+    }
+    
+}
