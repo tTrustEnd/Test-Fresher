@@ -5,6 +5,7 @@ import { doReturnOrder } from "../../../redux/order/orderSlice";
 import { CallUpdate, updateBook } from "../../../service/api";
 const { Column, ColumnGroup } = Table;
 const History = () => {
+
     const data = useSelector(state => state.order.cartsHistory);
     const dispatch = useDispatch();
     let datax = data.map((item, index) => {
@@ -30,6 +31,7 @@ const History = () => {
 
     const handleReturnBuy = async(record) => {
         dispatch(doReturnOrder(record))
+        // let x = data.
         await updateBook(record.id,
             {
                 thumbnail:record.thumbnail,
@@ -37,7 +39,7 @@ const History = () => {
                 mainText:record.detail,
                 author:record.author,
                 price:record.price,
-            
+                sold:record.sold-record.quantity,
             }
             )
         message.success('Hủy đơn hàng thành công T_T')

@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Input, Modal, Popconfirm, Popover, Row, Steps } from "antd";
+import { Avatar, Button, Col, Input, Modal, Popconfirm, Popover, Result, Row, Steps } from "antd";
 import React, { useEffect, useState } from 'react';
 import { Divider, Table } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
@@ -88,7 +88,7 @@ const Order = () => {
                             centered
                             open={isShowMinus}
                             onOk={() => handleDeleteBookCarts(record)}
-                            // onCancel={() => setModal2Open(false)}
+                            onCancel={() => setIsShowMinus(false)}
                         >
                             <p>Bạn có muốn xóa sản phẩm đang chọn ?</p>
                         </Modal>
@@ -238,9 +238,12 @@ const Order = () => {
         {carts.length === 0 &&
             <div style={{ justifyContent: 'center', textAlign: 'center' }}>
                 <div>
-                    <img src='Avtnodataoder'></img>
+                <Result
+    status="404"
+    title="oh no! không có sản phẩm nào"
+  />
                 </div>
-                <div>
+                <div  style={{ paddingBottom:50}}>
                     <NavLink to='/' className='nav-Link'>
                         <Button className="btn btn-warning" style={{ height: 38 }}>
                             <span style={{ paddingLeft: 25, paddingRight: 25, paddingBottom: 5, fontSize: 14 }}>
