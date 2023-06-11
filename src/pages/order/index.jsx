@@ -8,7 +8,7 @@ import './index.scss'
 import { createOrder, updateBook } from "../../service/api";
 import { current } from "@reduxjs/toolkit";
 import { NavLink, useNavigate } from "react-router-dom";
-import Avtnodataoder from '../../assets/Capture.PNG/?url'
+// import Avtnodataoder from '../../assets/Capture.PNG/?url'
 
 const Order = () => {
     const navigate = useNavigate()
@@ -238,7 +238,7 @@ const Order = () => {
         {carts.length === 0 &&
             <div style={{ justifyContent: 'center', textAlign: 'center' }}>
                 <div>
-                    <img src={Avtnodataoder}></img>
+                    <img src='Avtnodataoder'></img>
                 </div>
                 <div>
                     <NavLink to='/' className='nav-Link'>
