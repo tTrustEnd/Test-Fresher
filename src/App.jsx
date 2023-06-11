@@ -5,7 +5,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Contact from './pages/contact';
 import Header from './components/Header';
 import BookPage from './pages/book';
 import Home from './components/Home';
@@ -19,12 +18,18 @@ import ProtectedRoute from './components/ProtectedRoute/idnex';
 import NotFound from './pages/404NF';
 import Footer from './components/Footer';
 import LayoutAdmin from './components/Admin/LayoutAdmin';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "react-image-gallery/styles/scss/image-gallery.scss";
+import Order from './pages/order';
+import OrderSuccess from './pages/order/OrderSuccess';
+import History from './pages/order/History';
 
 const Layout = () => {
+  const [searchTerm,setSearchTerm] =useState('');
   return (
     <div className='layout-app'>
-      <Header />
-      <Outlet />
+      <Header  />
+      <Outlet context={[searchTerm,setSearchTerm]} />
       <Footer />
 
     </div>
@@ -40,11 +45,19 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       {
-        path: "contact",
-        element: <Contact />,
+        path: "order",
+        element: <Order />,
       },
       {
-        path: "book",
+        path:"order/success",
+        element:<OrderSuccess/>
+      },
+      {
+        path:"order/history",
+        element:<History/>
+      },
+      {
+        path: "book/:slug", //theem :slug là ta đang muốn định nghĩa thêm 1 tham số (params)
         element: <BookPage />,
       },
     ],
@@ -61,7 +74,7 @@ const router = createBrowserRouter([
         path: "user",
         element:
           <ProtectedRoute>
-            <Contact />
+           <Order />
           </ProtectedRoute>
         ,
       },
@@ -74,11 +87,11 @@ const router = createBrowserRouter([
         ,
       },
       {
-        path: "oders",
+        path: "orders",
         element:
-
+        <ProtectedRoute>
           <BookPage />
-
+          </ProtectedRoute>
         ,
       },
     ],

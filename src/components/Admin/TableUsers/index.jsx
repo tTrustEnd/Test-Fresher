@@ -12,7 +12,7 @@ import {Input} from 'antd';
 const TableUsers = () => {
     const [listUSers, setListUsers] = useState([]);
     const [current, setCurrent] = useState(1);
-    const [pageSize, setPageSize] = useState(8);
+    const [pageSize, setPageSize] = useState(4);
     const [total, setTotal] = useState(5);
     const [dataName, setDataName] = useState([]);
     const [dataEmail, setDataEmail] = useState([]);
@@ -33,7 +33,7 @@ const TableUsers = () => {
             render: (text, record, index) => {
                 // console.log('cehck text', text);
                 // console.log('cehck record', record);
-                // console.log('cehck index', index);
+                // // console.log('cehck index', index);
                 return (
                     <a
                         onClick={() => {
@@ -49,7 +49,7 @@ const TableUsers = () => {
             className: 'name',
             dataIndex: 'fullName',
             ellipsis: true,
-            width: 400,
+            width: 300,
             sorter: true,
             editable: true,
 
@@ -59,7 +59,7 @@ const TableUsers = () => {
             title: 'Email',
             dataIndex: 'email',
             ellipsis: true,
-            width: 400,
+            width: 300,
             sorter: true,
         },
         {
@@ -67,7 +67,7 @@ const TableUsers = () => {
             title: 'Số điện thoại',
             dataIndex: 'phone',
             ellipsis: true,
-            width: 350,
+            width: 300,
             delete: true
         },
         {
@@ -78,7 +78,9 @@ const TableUsers = () => {
                 // console.log('cehck record', record);
                 // console.log('cehck index', index);
                 return (
+               
                     <div>
+                             {text.role !== 'ADMIN' &&
                         <Popconfirm 
                           onConfirm={()=> handleDelete(text)}
                         placement="left" title='Xóa người dùng này???'
@@ -89,8 +91,9 @@ const TableUsers = () => {
                            <button>Cancel</button>
                         </div>
                     } trigger="click">
-                            <DeleteOutlined style={{ color: '#08c' }} />
+                             <DeleteOutlined style={{ color: '#08c' }} />
                         </Popconfirm>
+            }
                         <EditOutlined style={{ color: '#b85ad1' }} onClick={() => {
                             setIsShowModalUpdate(true)
                             setDataUpdate(text)
@@ -211,7 +214,6 @@ const TableUsers = () => {
         //    console.log(res)
     }
     const downLoadCSV = (listUSers) => {
-
         console.log(listUSers)
         const worksheet = XLSX.utils.json_to_sheet(listUSers);
         const workbook = XLSX.utils.book_new();
