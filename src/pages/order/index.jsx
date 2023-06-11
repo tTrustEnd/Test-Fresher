@@ -26,11 +26,12 @@ const Order = () => {
     const title = (<>
         Sản phẩm ({carts.length})
     </>)
+    const [isShowMinus,setIsShowMinus] = useState(false)
     const handleMinus = (record) => {
         dispatch(doMinusOrder(record))
-        // if (record.quantity < 1) {
-        //     handleDeleteBookCarts(record)
-        // }
+        if (record.quantity < 1) {
+            setIsShowMinus(true)
+        }
 
         itemWillBuy.map(item => {
             if (item.key === record.key && record.quantity > 0) {
@@ -49,7 +50,7 @@ const Order = () => {
     const handleDeleteBookCarts = (record) => {
         console.log('check rec', record)
         dispatch(doDeleteItem(record))
-
+        setIsShowMinus(false)
         let is = itemWillBuy.findIndex(item => item.key == record.key);
         if (is > -1) {
             setTotalWillBuy(totalWillBuy - 1)
@@ -81,13 +82,16 @@ const Order = () => {
             dataIndex: 'quantity',
             render: (_, record) => {
                 return (
-                    <>   
-                      {/* <Popconfirm
-                    onConfirm={() => handleDeleteBookCarts(record)}
-                    title='Xóa sản phẩm này ??'>
-                    <DeleteOutlined
-                    />
-                </Popconfirm> */}
+                    <>
+                        <Modal
+                            title="Xóa sản phẩm"
+                            centered
+                            open={isShowMinus}
+                            onOk={() => handleDeleteBookCarts(record)}
+                            // onCancel={() => setModal2Open(false)}
+                        >
+                            <p>Bạn có muốn xóa sản phẩm đang chọn ?</p>
+                        </Modal>
                         <Button onClick={() => {
                             handleMinus(record)
                         }}>-</Button>
@@ -238,8 +242,8 @@ const Order = () => {
                 </div>
                 <div>
                     <NavLink to='/' className='nav-Link'>
-                        <Button className="btn btn-warning" style={{ height: 38}}>
-                            <span style={{ paddingLeft: 25, paddingRight: 25, paddingBottom: 5,fontSize:14 }}>
+                        <Button className="btn btn-warning" style={{ height: 38 }}>
+                            <span style={{ paddingLeft: 25, paddingRight: 25, paddingBottom: 5, fontSize: 14 }}>
                                 Tiếp tục mua sắm </span>
                         </Button>
                     </NavLink>

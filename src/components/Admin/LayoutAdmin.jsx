@@ -85,7 +85,8 @@ const LayoutAdmin = () => {
                             style={{ fontFamily: 'sans-serif', fontSize: 18, width: 250 }}
                             theme="light"
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={['/']}
+                            selectedKeys={[location.pathname]}
                             items={[
                                 {
                                     key: 'Home',
@@ -98,7 +99,7 @@ const LayoutAdmin = () => {
                                     label: <NavLink className='nav-link' to='/admin'>Dashboard</NavLink>,
                                 },
                                 {
-                                    key: '2',
+                                    key: 'Manage Users',
                                     icon: <UserOutlined />,
                                     label: 'Manage Users',
                                     children: [

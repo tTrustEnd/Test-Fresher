@@ -8,7 +8,7 @@ import './index.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate, useOutletContext } from 'react-router-dom';
 import { CallUpdate, callChangePassword, callLogout, callUploadBookImg, getAllUsers } from '../../service/api';
-import { doUpdateDetail, doUploadAvtAc, doViewPreUpload,doLogoutAction } from '../../redux/account/accountSlice';
+import { doUpdateDetail, doUploadAvtAc, doViewPreUpload, doLogoutAction } from '../../redux/account/accountSlice';
 import { doSearchItem } from '../../redux/order/orderSlice';
 
 
@@ -265,10 +265,10 @@ const Header = () => {
                     navigate('/')
                 }} className='titleheader'>MẹCủaBạnn</span> </div>
                 <div style={{ display: 'flex', paddingTop: 11, width: '100%' }}>
-                    <div>  <SearchOutlined/> </div>
-                    <div style={{width:600}}> <Input 
-                     onChange={(e) => handleSearch(e)}
-                    placeholder='Tìm gì hôm nay nào' /></div>
+                    <div>  <SearchOutlined /> </div>
+                    <div style={{ width: 600 }}> <Input
+                        onChange={(e) => handleSearch(e)}
+                        placeholder='Tìm gì hôm nay nào' /></div>
                 </div>
 
 
@@ -285,7 +285,7 @@ const Header = () => {
 
                             content={(
                                 <>
-                                    {carts.map((item, index) => {
+                                    {carts && carts.length > 0 && carts.map((item, index) => {
 
                                         return (
                                             <div
@@ -299,13 +299,13 @@ const Header = () => {
                                                     {item.detail.price} vnđ
                                                 </div>
                                             </div>
-
                                         )
                                     })}
-                                    <div style={{ display: 'flex', justifyContent: 'right' }}>
-                                        <Button onClick={() => { navigate('/order') }} style={{ color: 'white', background: 'red', }}>Xem giỏ hàng</Button>
-                                    </div>
-
+                                    {carts && carts.length > 0 &&
+                                        <div style={{ display: 'flex', justifyContent: 'right' }}>
+                                            <Button onClick={() => { navigate('/order') }} style={{ color: 'white', background: 'red', }}>Xem giỏ hàng</Button>
+                                        </div>
+                                    }
                                 </>
                             )}
                         >
@@ -314,7 +314,9 @@ const Header = () => {
                                     style={{ background: 'red', width: 15, color: 'white', borderRadius: '100%', textAlign: 'center' }}>
                                     {carts.length ? carts.length : 0}
                                 </div>}>
-                                <ShoppingCartOutlined style={{ fontSize: 30, color: 'aqua' }} />
+                                <NavLink to='order'>
+                                    <ShoppingCartOutlined style={{ fontSize: 30, color: 'aqua' }} />
+                                </NavLink>
                             </Badge>
                         </Popover>
 
