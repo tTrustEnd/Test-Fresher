@@ -72,7 +72,7 @@ export const accountSlice = createSlice({
         // doesn't actually mutate the state because it uses the Immer library,
         // which detects changes to a "draft state" and produces a brand new
         // immutable state based off those changes
-      localStorage.removeItem('access_token')
+      // localStorage.removeItem('access_token')
         state.user.fullName=action.payload.fullName;
         state.user.phone=action.payload.phone;
         state.user.avatar =action.payload.avatar;
