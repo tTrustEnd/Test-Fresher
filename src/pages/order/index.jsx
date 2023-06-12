@@ -69,7 +69,7 @@ const Order = () => {
                     <div style={{ display: 'flex' }}>
                         <div>   <Avatar
                             style={{ width: 60 }}
-                            src={`http://localhost:8080/images/book/${record.thumbnail}`}
+                            src={`${import.meta.env.VITE_BASE_URL}/images/book/${record.thumbnail}`}
                         /> </div>
                         <div> {record.mainText} </div>
                     </div>
