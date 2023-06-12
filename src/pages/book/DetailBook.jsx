@@ -5,13 +5,15 @@ import { FaCarSide, FaCaravan } from "react-icons/fa";
 import ReactImageGallery from "react-image-gallery";
 import { useDispatch, useSelector } from "react-redux";
 import { doOrder } from "../../redux/order/orderSlice";
+import { useNavigate } from "react-router-dom";
 
 const ViewDetail = (props) => {
     const dispatch = useDispatch()
     const { dataBook, image } = props
     const [isShowModal, setIsShowModal] = useState(false);
     const [x, setX] = useState(1);
-
+    const user = useSelector(state => state.account.user)
+    const navigate = useNavigate()
     const onClose = () => {
         setIsShowModal(false)
     }
@@ -21,8 +23,14 @@ const ViewDetail = (props) => {
     }
 
     const handleAddCarts = (quantity, book) => {
-        dispatch(doOrder({ quantity, detail: book, _id: book._id }))
-        message.success('Sản phầm đã được thêm vào giỏ hàng')
+        if(user.email !==''){
+            console.log(user)
+            dispatch(doOrder({ quantity, detail: book, _id: book._id }))
+            message.success('Sản phầm đã được thêm vào giỏ hàng')
+        }
+     else{
+        navigate('/login')
+     }
     }
     return (<>
         <Modal
@@ -127,7 +135,6 @@ const ViewDetail = (props) => {
                         }}
                         style={{ border: '1px solid red', color: 'red', width: 200, height: 50, textAlign: 'center', fontWeight: 700 }}>
                         <ShoppingCartOutlined
-
                             style={{ paddingBottom: 5 }} />
                         Thêm vào giỏ hàng </Button>
                     <div style={{ paddingLeft: 20 }}>

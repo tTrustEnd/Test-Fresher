@@ -72,7 +72,7 @@ const Header = () => {
         },
         isAuthenticated === true &&
         {
-            label: <NavLink className='nav-link' onClick={() => handleLogout()} to="/">Đăng Xuất</NavLink>,
+            label: <NavLink className='nav-link' onClick={() => handleLogout()} to="#">Đăng Xuất</NavLink>,
             key: '3',
         },
     ];
@@ -316,7 +316,8 @@ const Header = () => {
                                     {carts.length ? carts.length : 0}
                                 </div>}>
                                 <NavLink to='order'>
-                                    <ShoppingCartOutlined style={{ fontSize: 30, color: 'aqua' }} />
+                                    <ShoppingCartOutlined 
+                                    style={{ fontSize: 30, color: 'aqua' }} />
                                 </NavLink>
                             </Badge>
                         </Popover>

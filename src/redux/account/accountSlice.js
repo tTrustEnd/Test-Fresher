@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-isAuthenticated:false,
-isLoading:true,
+isAuthenticated:null,
+isLoading:null,
 user:{
     email: '',
     phone: "",
@@ -41,23 +41,22 @@ export const accountSlice = createSlice({
       state.isAuthenticated=true;
       state.isLoading=false;
       state.user=action.payload;
-     
     },
     doGetAccount: (state, action) => {
         // Redux Toolkit allows us to write "mutating" logic in reducers. It
         // doesn't actually mutate the state because it uses the Immer library,
         // which detects changes to a "draft state" and produces a brand new
         // immutable state based off those changes
-        let users = state.user
-        let tem = state.avataTemplace
-        console.log('check 2e312',action.payload)
-        console.log('checl tem',tem)
-        users.avatar = action.payload.avatar
-        state.isAuthenticated=true;
+        if(action.payload.email !== ''){
+          state.isAuthenticated=true;
+        }
+        if(action.payload.email === '' ){
+          state.isAuthenticated=false;
+        }
+       
+       
         state.isLoading=false;
         state.user=action.payload.user;
-        state.avataTemplace = action.payload.avatar
-
       },
       doLogoutAction: (state, action) => {
         // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -66,8 +65,7 @@ export const accountSlice = createSlice({
         // immutable state based off those changes
         localStorage.removeItem('access_token');
         state.isAuthenticated=false
-        state.isLoading=true;
-        state.user={
+        state.user={  
           email: '',
           phone: "",
           "fullName": "",
@@ -81,18 +79,16 @@ export const accountSlice = createSlice({
         // doesn't actually mutate the state because it uses the Immer library,
         // which detects changes to a "draft state" and produces a brand new
         // immutable state based off those changes
-      // localStorage.removeItem('access_token')
         state.user.fullName=action.payload.fullName;
         state.user.phone=action.payload.phone;
         state.user.avatar =action.payload.avatar;
       },
       doUploadAvtAc: (state,action) => {
         state.user.avatar =action.payload.avatar;
-        state.avataTemplace=action.payload.avatar
-        console.log('sadawdawds',state.avataTemplace)
+
       },
       doViewPreUpload: (state,action) => {
-        state.user.avatar = action.payload.avatar
+
         state.avataTemplace =action.payload.avatar
       }
 

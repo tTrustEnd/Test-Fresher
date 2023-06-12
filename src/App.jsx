@@ -119,9 +119,9 @@ export default function App() {
 
   const getAccount = async () => {
     if (
+      isAuthenticated===false ||
       window.location.pathname === '/login'
       || window.location.pathname === '/register'
-      ||  window.location.pathname === '/' && isAuthenticated===false
     ) return;
     const res = await callFetchAccount();
     if (res && res.data) {
@@ -133,7 +133,7 @@ export default function App() {
   }, [])
   return (
     <>
-      {isLoading === true || window.location.pathname === '/login'
+      {isLoading === false || window.location.pathname === '/login'
         || window.location.pathname === '/'
         || window.location.pathname === '/register'
         ?

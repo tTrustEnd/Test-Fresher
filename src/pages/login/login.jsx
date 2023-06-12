@@ -23,6 +23,7 @@ const LoginPage = () => {
         const {username, password } = values;
         let res = await fetchLogin(username, password)
    if(res?.data?.access_token){
+    console.log(res)
     localStorage.setItem('access_token',res.data.access_token)
     dispatch(doLoginAction(res.data.user))
    message.success('Đăng nhập tài khoản thành công')
