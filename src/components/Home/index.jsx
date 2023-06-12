@@ -238,7 +238,7 @@ const Home = () => {
                           }}
                           preview={false}
                             width={100}
-                            src={`http://localhost:8080/images/book/${item.thumbnail}`}
+                            src={`${import.meta.env.VITE_BASE_URL}/images/book/${item.thumbnail}`}
                           />
                           <div style={{}} >
                             {item.mainText}

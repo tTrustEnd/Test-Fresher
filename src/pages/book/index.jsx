@@ -25,8 +25,8 @@ const BookPage =() =>{
             if(raw.thumbnail){
                 arr.push(
                     {
-                        original: `http://localhost:8080/images/book/${raw.thumbnail}`,
-                        thumbnail: `http://localhost:8080/images/book/${raw.thumbnail}`,
+                        original: `${import.meta.env.VITE_BASE_URL}/images/book/${raw.thumbnail}`,
+                        thumbnail: `${import.meta.env.VITE_BASE_URL}/images/book/${raw.thumbnail}`,
                     },
                 )
             }
@@ -34,8 +34,8 @@ const BookPage =() =>{
                 raw.slider.map(item=>{
                     arr.push(
                         {
-                            original: `http://localhost:8080/images/book/${item}`,
-                            thumbnail: `http://localhost:8080/images/book/${item}`,
+                            original: `${import.meta.env.VITE_BASE_URL}/images/book/${item}`,
+                            thumbnail: `${import.meta.env.VITE_BASE_URL}/images/book/${item}`,
                         },
                     )
                 })
