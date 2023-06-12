@@ -33,7 +33,6 @@ const Header = () => {
             message.success('Đăng xuất thành công')
             navigate('/')
         }
-
     }
     const handleSearch = (e) => {
         let res = e.target.value
@@ -110,7 +109,6 @@ const Header = () => {
                 let res1 = await callChangePassword(email, oldpass, newpass)
                 console.log('.sdwadwas', res1)
             }
-            
             let res = await CallUpdate({ _id: user.id, phone: values.phone, fullName: values.fullName, avatar: avt })
             console.log('check res', res)
             dispatch(doUpdateDetail(values))
