@@ -106,8 +106,11 @@ const Header = () => {
             const oldpass = values.password;
             const newpass = values.newPassword;
             console.log(email, oldpass, newpass)
-            let res1 = await callChangePassword(email, oldpass, newpass)
-            console.log('.sdwadwas', res1)
+            if(oldpass && newpass && oldpass.length>0 && newpass.length > 0) {
+                let res1 = await callChangePassword(email, oldpass, newpass)
+                console.log('.sdwadwas', res1)
+            }
+            
             let res = await CallUpdate({ _id: user.id, phone: values.phone, fullName: values.fullName, avatar: avt })
             console.log('check res', res)
             dispatch(doUpdateDetail(values))
