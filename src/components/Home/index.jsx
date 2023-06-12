@@ -3,7 +3,7 @@ import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { getAllBook } from "../../service/api";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { MinusOutlined } from "@ant-design/icons";
+import { MinusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -14,11 +14,15 @@ const Home = () => {
   const [current, setCurrent] = useState(1)
   const [pageSize, setPageSize] = useState(5)
   const [total, setTotal] = useState()
-  const onFinish = async(values) => {
+  const onFinish = async (values) => {
+    console.log(values)
+    if(values.start == undefined || values.end == undefined)return;
+    if (values.start !== undefined || values.start !== undefined) {
       let res = dataBook.filter(item => item.price - values.start >= 0 && item.price - values.end <= 0);
       setDataBook(res);
+    }
   };
- 
+
   const onChange2 = async (key) => {
     if (key) {
       let query = `?current=${current}&pageSize=${pageSize}&sort=${key}`
@@ -35,7 +39,7 @@ const Home = () => {
     if (value === undefined) {
       getBooks()
     }
-   
+
   };
   const onchangePage = (Pagination) => {
     if (Pagination !== current) {
@@ -59,12 +63,12 @@ const Home = () => {
     {
       key: '1',
       label: `Phổ biến`,
-      children:<></>,
+      children: <></>,
     },
     {
       key: '-sold',
       label: `Bán chạy`,
-      children:<></>,
+      children: <></>,
     },
     {
       key: 'createdAt',
@@ -83,14 +87,14 @@ const Home = () => {
     },
   ];
   const getBooks = async () => {
-  
-    if(searchTerm){
+
+    if (searchTerm) {
       let query = `?current=${current}&pageSize=${pageSize}&mainText=/${searchTerm}/i`
       let res1 = await getAllBook(query)
       setDataBook(res1.data.result)
-    setTotal(res1.data.meta.total)
+      setTotal(res1.data.meta.total)
     }
-    else{
+    else {
       let query = `?current=${current}&pageSize=${pageSize}`
       let res = await getAllBook(query)
       setDataBook(res.data.result)
@@ -139,26 +143,32 @@ const Home = () => {
 
   useEffect(() => {
     getBooks()
-  }, [current, pageSize,searchTerm])
+  }, [current, pageSize, searchTerm])
 
-  
-// Breakpoint	Class infix	Dimensions
-// X-Small	None	<576px
-// Small	sm	≥576px
-// Medium	md	≥768px
-// Large	lg	≥992px
-// Extra large	xl	≥1200px
-// Extra extra large	xxl	≥1400px
+
+  // Breakpoint	Class infix	Dimensions
+  // X-Small	None	<576px
+  // Small	sm	≥576px
+  // Medium	md	≥768px
+  // Large	lg	≥992px
+  // Extra large	xl	≥1200px
+  // Extra extra large	xxl	≥1400px
   return (
     <>
-      <div className="Home-container" style={{ maxWidth: 1920 }}>
+      <div className="Home-container" >
         <Row gutter={[20, 20]}>
-          <Col xxl={5} xl={5} lg={7} md={0} sm={0} xs={0} style={{ paddingLeft: 50 }}>
-            <div>Bộ lọc tìm kiếm</div>
+          <Col xxl={4} xl={5} lg={4} md={20} sm={15} xs={20} style={{ paddingLeft: 50, justifyContent: 'center' }}>
+            <div style={{display:'flex',justifyContent:'space-between'}}>
+            <div>Bộ lọc tìm kiếm </div>
+            <div> <ReloadOutlined onClick={() => {
+              getBooks()
+              form.resetFields()
+            }} /></div>
+               </div>
             <span>Danh mục sản phẩm</span>
             <Form
               form={form}
-              onValuesChange={(changedValues, values) => HandleonValuesChange(changedValues, values)}
+              // onValuesChange={(changedValues, values) => HandleonValuesChange(changedValues, values)}
               onFinish={onFinish}
 
             >
@@ -167,7 +177,6 @@ const Home = () => {
                 <TreeSelect
                   onChange={onChange}
                   showSearch
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto', minWidth: 300 }}
                   placeholder="Please select"
                   dropdownMatchSelectWidth={false}
                   placement='bottomLeft'
@@ -191,85 +200,83 @@ const Home = () => {
                 </Form.Item>
 
                 <MinusOutlined />
+                <MinusOutlined />
 
                 <Form.Item
                   name={'end'}
                 >
                   <InputNumber
                     name="to"
-                    defaultValue={1000}
+                    defaultValue={10000000}
                     formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                   />
                 </Form.Item >
               </div>
-              <Form.Item style={{ display: 'flex', justifyContent: 'center' }}>
+              <Form.Item style={{ display: 'flex' }}>
                 <Button
-                  style={{display:'flex', color: 'black', background: '#00ffff'}}
+                  style={{ color: 'black', background: '#00ffff' }}
                   onClick={() => form.submit()}
                 >Áp dụng
                 </Button>
               </Form.Item>
-              <Rate allowHalf defaultValue={5} style={{ width: '50%' }} /> 95%
-              <Rate allowHalf defaultValue={4} style={{ width: '50%' }} /> 5%
-              <Rate allowHalf defaultValue={3} style={{ width: '50%' }} /> 0%
-              <Rate allowHalf defaultValue={2} style={{ width: '50%' }} /> 0%
-              <Rate allowHalf defaultValue={1} style={{ width: '50%' }} /> 0%
             </Form>
           </Col>
           {/* col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2col2 */}
-          <Col xxl={15} xl={5} lg={13} md={18}    style={{}}>
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange2} />
-            <Row xxl={17} md={25} style={{ display: 'flex', width: '1350px' }}>
+          <Col xxl={20} xl={18} lg={20} md={23} sm={23} xs={30} style={{ justifyContent: 'center', paddingLeft: 25 }}>
+            <Col xxl={10} xl={14} xs={11} >
+              <Tabs defaultActiveKey="1" items={items} onChange={onChange2} />
+            </Col>
+            <Col xxl={23} lg={28} sm={28} xs={20} style={{ display: 'flex' }}>
               {dataBook && dataBook.length > 0 &&
                 dataBook.map((item, index) => {
                   return (
                     <>
-                      <div key={`book-${index}`}
-                        style={{ display: 'flex', justifyContent: 'center' }}
-                      >
-                        <div
-                          style={{ textAlign: 'center', width: 250 }}
+                      <Col xxl={5} lg={5} sm={6} xs={12} >
+                        <div key={`book-${index}`}
+                          style={{ justifyContent: 'center' }}
                         >
-                          <Image
-                          onClick={()=>{
-                           let res = convertSlug(item.mainText);
-                            navigate(`/book/${res}/?id=${item._id}`)
-                          }}
-                          preview={false}
-                            width={100}
-                            src={`${import.meta.env.VITE_BASE_URL}/images/book/${item.thumbnail}`}
-                          />
-                          <div style={{}} >
-                            {item.mainText}
-                          </div>
-                          {item.mainText.length < 35 && <br />}
-                          <div style={{ fontSize: 12, textAlign: "center" }}>
-                            <Rate defaultValue={5}></Rate>    Đã bán {item.sold}
-                          </div>
-                          <div style={{ color: 'red', textAlign: "center", paddingBottom: 25 }} >
-                            <span> {item.price}  đ </span>
-                          </div>
-                        </div>
+                          <div
+                            style={{ textAlign: 'center' }}
+                          >
+                            <Image
+                              onClick={() => {
+                                let res = convertSlug(item.mainText);
+                                navigate(`/book/${res}/?id=${item._id}`)
+                              }}
+                              preview={false}
 
-                      </div>
+                              src={`${import.meta.env.VITE_BASE_URL}/images/book/${item.thumbnail}`}
+                            />
+                            <div style={{}} >
+                              {item.mainText}
+                            </div>
+                            {item.mainText.length < 35 && <br />}
+                            <div style={{ fontSize: 12, textAlign: "center" }}>
+                              <Rate defaultValue={5}></Rate>    Đã bán {item.sold}
+                            </div>
+                            <div style={{ color: 'red', textAlign: "center", paddingBottom: 25 }} >
+                              <span> {item.price}  đ </span>
+                            </div>
+                          </div>
+
+                        </div>
+                      </Col>
                     </>
                   )
                 })
               }
+            </Col>
 
+            <Pagination
+              style={{ textAlign: 'center' }}
+              onChange={onchangePage}
+              current={current}
+              pageSize={pageSize}
+              total={total}
+              showTotal={(total, range) => { return (<>{`${range[0]}-${[range[1]]}/${total}`}</>) }}
+            />
 
-            </Row>
-
-            <Row style={{ display: 'flex', justifyContent: 'center' }}>
-              <Pagination
-                onChange={onchangePage}
-                current={current}
-                pageSize={pageSize}
-                total={total}
-                showTotal={(total, range) => { return (<>{`${range[0]}-${[range[1]]}/${total}`}</>) }}
-              />
-            </Row>
           </Col>
         </Row>
       </div>

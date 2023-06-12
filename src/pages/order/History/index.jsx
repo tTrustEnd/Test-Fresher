@@ -73,7 +73,7 @@ const History = () => {
                             <>
                                 <Avatar
                                 style={{width:50}}
-                                    src={`http://localhost:8080/images/book/${record}`}
+                                    src={`${import.meta.env.VITE_BASE_URL}/images/book/${record}`}
                                 />
                             </>
                         )}

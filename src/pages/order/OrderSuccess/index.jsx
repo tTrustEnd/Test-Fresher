@@ -5,7 +5,7 @@ const OrderSuccess = () => {
         <Result
             status="success"
             title="Mua hàng thành công"
-            subTitle="  : 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+            subTitle=" Cảm ơn bạn đã mua sản phẩm của chúng tôi :D."
             extra={[
                 <NavLink style={{ width: '100%' }} to='/order' className='nav-link'>
                     <Button type="primary" key="order"> Quay lại giỏ hàng  </Button>
