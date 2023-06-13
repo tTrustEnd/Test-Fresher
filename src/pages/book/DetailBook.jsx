@@ -60,7 +60,7 @@ const ViewDetail = (props) => {
             gutter={[20, 20]}
         >
 
-            <Col xxl={10} md={15} style={{ paddingLeft: 150, }}>
+            <Col xxl={10} lg={12} md={20} xs={21} style={{ paddingLeft: 150, }}>
                 <ReactImageGallery
                     items={images}
                     showNav={false}
@@ -74,7 +74,7 @@ const ViewDetail = (props) => {
 
                 />
             </Col>
-            <Col xxl={8} md={0} sm={0} style={{ paddingLeft: 50 }}>
+            <Col xxl={8} lg={10} md={24} sm={20} xs={24} style={{ paddingLeft: 50 }}>
                 <div>
                     Tác giả: <span style={{ color: 'blue' }}>{dataBook.author}</span>
                 </div>
