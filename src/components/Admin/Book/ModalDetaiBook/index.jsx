@@ -24,20 +24,6 @@ const ModalDetaBook = (props) => {
     let urlAvt = `${import.meta.env.VITE_BASE_URL}/images/book/${dataBookView.thumbnail}`
 
     const [fileList, setFileList] = useState([
-
-        // {
-        //     uid: '-1    ',
-        //     name: 'image.png',
-        //     status: 'done',
-        //     url:urlAvt,
-        // },
-        // {
-        //     uid: '-2',
-        //     name: 'image.png',
-        //     status: 'done',
-        //     url:urlAvt,
-        // },
-
     ]);
 
     let x = dataBookView.slider;

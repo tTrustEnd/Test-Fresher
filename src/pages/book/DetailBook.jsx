@@ -37,10 +37,11 @@ const ViewDetail = (props) => {
             width={900}
             open={isShowModal}
             onCancel={onClose}
-            cancelText={null}
-            okType="default"
+            cancelText={<></>}
+            okType="ghost"
+            okText={<></>}
             okButtonProps={{ disabled: true }}
-            cancelButtonProps={{ disabled: true }}
+            footer={<></>}
 
         ><ReactImageGallery
                 items={images}

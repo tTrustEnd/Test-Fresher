@@ -105,15 +105,16 @@ const Header = () => {
             const oldpass = values.password;
             const newpass = values.newPassword;
             console.log(email, oldpass, newpass)
-            if(oldpass && newpass && oldpass.length>0 && newpass.length > 0) {
+            if (oldpass && newpass && oldpass.length > 0 && newpass.length > 0) {
                 let res1 = await callChangePassword(email, oldpass, newpass)
                 console.log(res1)
-                if(res1.statusCode === 200){
+                if (res1.statusCode === 200) {
                     message.success('Thay đổi mật khẩu thành công')
                 }
                 notification.error({
-                    message:'Thay đổi mật khẩu thất bại',
-                    description:res1.message})
+                    message: 'Thay đổi mật khẩu thất bại',
+                    description: res1.message
+                })
             }
             let res = await CallUpdate({ _id: user.id, phone: values.phone, fullName: values.fullName, avatar: avt })
             console.log('check res', res)
@@ -316,14 +317,15 @@ const Header = () => {
                                 </>
                             )}
                         >
+
                             <Badge
                                 count={<div
                                     style={{ background: 'red', width: 15, color: 'white', borderRadius: '100%', textAlign: 'center' }}>
                                     {carts.length ? carts.length : 0}
                                 </div>}>
                                 <NavLink to='order'>
-                                    <ShoppingCartOutlined 
-                                    style={{ fontSize: 30, color: 'aqua' }} />
+                                    <ShoppingCartOutlined
+                                        style={{ fontSize: 30, color: 'aqua' }} />
                                 </NavLink>
                             </Badge>
                         </Popover>
