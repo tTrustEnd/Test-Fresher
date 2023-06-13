@@ -3,7 +3,7 @@ import { FaReact } from 'react-icons/fa';
 import { PlusOutlined, SearchOutlined, ShoppingCartOutlined, ShoppingFilled, ShoppingTwoTone } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 // import type { MenuProps } from 'antd';
-import { Badge, Dropdown, Space, Avatar, Input, message, Popover, InputNumber, Button, Row, Col, Modal, Tabs, Form, Upload } from 'antd';
+import { Badge, Dropdown, Space, Avatar, Input, message, Popover, InputNumber, Button, Row, Col, Modal, Tabs, Form, Upload, notification } from 'antd';
 import './index.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate, useOutletContext } from 'react-router-dom';
@@ -107,7 +107,13 @@ const Header = () => {
             console.log(email, oldpass, newpass)
             if(oldpass && newpass && oldpass.length>0 && newpass.length > 0) {
                 let res1 = await callChangePassword(email, oldpass, newpass)
-                console.log('.sdwadwas', res1)
+                console.log(res1)
+                if(res1.statusCode === 200){
+                    message.success('Thay đổi mật khẩu thành công')
+                }
+                notification.error({
+                    message:'Thay đổi mật khẩu thất bại',
+                    description:res1.message})
             }
             let res = await CallUpdate({ _id: user.id, phone: values.phone, fullName: values.fullName, avatar: avt })
             console.log('check res', res)
