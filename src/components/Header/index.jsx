@@ -271,7 +271,7 @@ const Header = () => {
 
                 <div>  <span onClick={() => {
                     navigate('/')
-                }} className='titleheader'>MẹCủaBạnn</span> </div>
+                }} className='titleheader'>Hello</span> </div>
                 <div style={{ display: 'flex', paddingTop: 11, width: '100%' }}>
                     <div>  <SearchOutlined /> </div>
                     <div style={{ width: 600 }}> <Input

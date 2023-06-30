@@ -53,9 +53,7 @@ export const accountSlice = createSlice({
         if(action.payload.email === '' ){
           state.isAuthenticated=false;
         }
-       
-       
-        state.isLoading=false;
+
         state.user=action.payload.user;
       },
       doLogoutAction: (state, action) => {

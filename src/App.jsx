@@ -118,30 +118,16 @@ export default function App() {
   const dispatch = useDispatch();
 
   const getAccount = async () => {
-    if (
-      isAuthenticated===false ||
-      window.location.pathname === '/login'
-      || window.location.pathname === '/register'
-    ) return;
     const res = await callFetchAccount();
-    if (res && res.data) {
-      dispatch(doGetAccount(res.data))
-    }
+  
   }
   useEffect(() => {
     getAccount()
   }, [])
   return (
     <>
-      {isLoading === false || window.location.pathname === '/login'
-        || window.location.pathname === '/'
-        || window.location.pathname === '/register'
-        ?
         <RouterProvider router={router} />
-        : <Loading />
-      }
-      {/* <RouterProvider router={router} /> */}
-      {/* <Loading/> */}
+    
     </>
   )
 
